@@ -19,7 +19,6 @@ Vocard is a highly customizable Discord music bot, designed to deliver a user-fr
 * Multiple languages available
 * Easy to update
 * Supports docker
-* Premium dashboard (in beta)
 
 ## Screenshot
 ![features](https://github.com/user-attachments/assets/f34b542d-be37-4170-bb80-c44748d8eb04)
@@ -27,9 +26,6 @@ Vocard is a highly customizable Discord music bot, designed to deliver a user-fr
 ## Requirements
 * [Python 3.11+](https://www.python.org/downloads/)
 * [Lavalink Server (Requires 4.0.0+)](https://github.com/freyacodes/Lavalink)
-
-## Setup
-Please see the [Setup Page](https://docs.vocard.xyz) in the docs to run this bot yourself!
 
 ## Deploying to fly.io
 
@@ -69,7 +65,4 @@ flyctl secrets set LAVALINK_SECURE="false"
   1. Make sure all secrets are set using the commands above
   2. The bot will automatically use the environment variables instead of settings.json
   3. settings.json is already in .gitignore to prevent accidentally committing sensitive data
-
-## Need Help?
-Join the [Vocard Support Discord](https://discord.gg/wRCgB7vBQv) for help or questions.
 
