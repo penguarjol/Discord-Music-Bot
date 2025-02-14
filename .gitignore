@@ -3,3 +3,5 @@ Vocard.rar
 *.pyc
 settings.json
 logs
+.github
+fly.*

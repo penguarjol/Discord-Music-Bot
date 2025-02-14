@@ -1,3 +1,4 @@
+import os
 from typing import (
     Dict,
     List,
@@ -5,18 +6,36 @@ from typing import (
     Union
 )
 
+def get_env_or_setting(env_key: str, settings: Dict, settings_key: str, default: Any = None) -> Any:
+    """Get value from environment variable or settings dict"""
+    return os.getenv(env_key) or settings.get(settings_key, default)
+
 class Settings:
     def __init__(self, settings: Dict) -> None:
-        self.token: str = settings.get("token")
-        self.client_id: int = int(settings.get("client_id", 0))
-        self.spotify_client_id: str = settings.get("spotify_client_id")
-        self.spotify_client_secret: str = settings.get("spotify_client_secret")
-        self.genius_token: str = settings.get("genius_token")
-        self.mongodb_url: str = settings.get("mongodb_url")
-        self.mongodb_name: str = settings.get("mongodb_name")
+        # Core credentials from environment variables or settings
+        self.token: str = get_env_or_setting("DISCORD_BOT_TOKEN", settings, "token")
+        self.client_id: int = int(get_env_or_setting("DISCORD_CLIENT_ID", settings, "client_id", 0))
+        self.spotify_client_id: str = get_env_or_setting("SPOTIFY_CLIENT_ID", settings, "spotify_client_id")
+        self.spotify_client_secret: str = get_env_or_setting("SPOTIFY_CLIENT_SECRET", settings, "spotify_client_secret")
+        self.genius_token: str = get_env_or_setting("GENIUS_TOKEN", settings, "genius_token")
+        self.mongodb_url: str = get_env_or_setting("MONGODB_URL", settings, "mongodb_url")
+        self.mongodb_name: str = get_env_or_setting("MONGODB_NAME", settings, "mongodb_name")
         
         self.invite_link: str = "https://discord.gg/wRCgB7vBQv"
-        self.nodes: Dict[str, Dict[str, Union[str, int, bool]]] = settings.get("nodes", {})
+        
+        # Handle Lavalink nodes with environment variables
+        if os.getenv("LAVALINK_HOST"):
+            self.nodes = {
+                "DEFAULT": {
+                    "host": os.getenv("LAVALINK_HOST"),
+                    "port": int(os.getenv("LAVALINK_PORT", "443")),
+                    "password": os.getenv("LAVALINK_PASSWORD"),
+                    "secure": os.getenv("LAVALINK_SECURE", "false").lower() == "true",
+                    "identifier": "DEFAULT"
+                }
+            }
+        else:
+            self.nodes: Dict[str, Dict[str, Union[str, int, bool]]] = settings.get("nodes", {})
         self.max_queue: int = settings.get("default_max_queue", 1000)
         self.bot_prefix: str = settings.get("prefix", "")
         self.activity: List[Dict[str, str]] = settings.get("activity", [{"listen": "/help"}])
