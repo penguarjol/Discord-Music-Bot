@@ -31,7 +31,7 @@ class Settings:
                     "port": int(os.getenv("LAVALINK_PORT", "443")),
                     "password": os.getenv("LAVALINK_PASSWORD"),
                     "secure": os.getenv("LAVALINK_SECURE", "false").lower() == "true",
-                    "identifier": "DEFAULT"
+                    "identifier": os.getenv("LAVALINK_IDENTIFIER", "DEFAULT")
                 }
             }
         else:

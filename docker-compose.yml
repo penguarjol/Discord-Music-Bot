@@ -1,5 +1,3 @@
-version: "3.8"
-
 services:
     lavalink:
         image: ghcr.io/lavalink-devs/lavalink:latest
@@ -7,8 +5,8 @@ services:
         restart: unless-stopped
         environment:
             - _JAVA_OPTIONS=-Xmx1G
-            - SERVER_PORT=2333
-            - LAVALINK_SERVER_PASSWORD=youshallnotpass
+            - SERVER_PORT=3000
+            - LAVALINK_SERVER_PASSWORD=NAIGLAVA-dash.techbyte.host
         volumes:
             ## Use "./" if you want to create a mount from your current directory (where docker-compose.yml is located)
             ## Having access to files INSIDE the container is complicated. Mount function is used to have access to certain container files or folders.
@@ -17,7 +15,7 @@ services:
         networks:
             - local
         expose:
-            - "2333"
+            - "3000"
 
     # # You can selfhost MongoDB. Just uncomment lines starting with single "#" below.
     # mongo:
